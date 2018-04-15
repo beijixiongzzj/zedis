@@ -20,11 +20,15 @@ public class ZedisShardPool {
 
     private ShardedJedisPool pool;
 
-    private ZedisHashStrategy hashStrategy = new ModeHashStrategy();
+    private static ZedisHashStrategy defaultHashStrategy = new ModeHashStrategy();
 
     public ZedisShardPool(GenericObjectPoolConfig poolConfig, List<ZedisShardInfo> shards) throws ZedisShardInfoException {
+        this(poolConfig,shards,defaultHashStrategy);
+    }
+
+    public ZedisShardPool(GenericObjectPoolConfig poolConfig, List<ZedisShardInfo> shards,ZedisHashStrategy hshStrategy) throws ZedisShardInfoException {
         List<JedisShardInfo> jedisShards = transCheckShardInfo(shards);
-        this.pool = new ShardedJedisPool(new JedisPoolConfig(),jedisShards,hashStrategy.hashing(shards));
+        this.pool = new ShardedJedisPool(new JedisPoolConfig(),jedisShards,hshStrategy.hashing(shards));
     }
 
     private List<JedisShardInfo> transCheckShardInfo(List<ZedisShardInfo> shards) throws ZedisShardInfoException {
