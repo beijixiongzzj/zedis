@@ -4,6 +4,7 @@ import com.zedis.conf.ZedisShardInfo;
 import com.zedis.exception.ZedisShardInfoException;
 import com.zedis.hashStrategy.ZedisHashStrategy;
 import com.zedis.hashStrategy.impl.ModeHashStrategy;
+import com.zedis.hashStrategy.impl.RandomHashStrategy;
 import org.junit.Test;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.ShardedJedis;
@@ -27,13 +28,13 @@ public class ZedisShardPoolTest {
         shards.add(info3);
         shards.add(info4);
         ZedisHashStrategy hashStrategy = new ModeHashStrategy();
-        ZedisShardPool shardedJedisPool = new ZedisShardPool(new JedisPoolConfig(),shards);
+        ZedisShardPool shardedJedisPool = new ZedisShardPool(new JedisPoolConfig(),shards,new RandomHashStrategy());
         int i = 0;
         while(true){
             ShardedJedis jedis = null;
             try {
                 jedis = shardedJedisPool.getPool().getResource();
-                jedis.set(UUID.randomUUID().toString(),UUID.randomUUID().toString());
+                jedis.set(i+"",UUID.randomUUID().toString());
                 System.out.println("set");
                 try {
                     Thread.sleep(100);
