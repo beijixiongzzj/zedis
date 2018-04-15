@@ -12,5 +12,5 @@ import java.util.List;
  * 哈希策略
  */
 public interface ZedisHashStrategy {
-    public Hashing hashing(final List<JedisShardInfo> shards);
+    public Hashing hashing(final List<ZedisShardInfo> shards);
 }

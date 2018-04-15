@@ -15,12 +15,12 @@ import java.util.regex.Matcher;
  * Created by Administrator on 2018/4/13.
  */
 public class ModeHashStrategy implements ZedisHashStrategy {
-    public Hashing hashing(final List<JedisShardInfo> shards) {
+    public Hashing hashing(final List<ZedisShardInfo> shards) {
         final Map<Integer,JedisShardInfo> shardDict = new HashMap<Integer,JedisShardInfo>();
         final Map<JedisShardInfo,Integer> indexDict = new HashMap<JedisShardInfo,Integer>();
         int  i = 0;
-        for(JedisShardInfo info:shards){
-            shardDict.put(((ZedisShardInfo)info).getShard(),info);
+        for(ZedisShardInfo info:shards){
+            shardDict.put(info.getShard(),info);
             indexDict.put(info,i);
             i++;
         }
