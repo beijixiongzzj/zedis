@@ -29,7 +29,7 @@ public class ZedisShardPool {
 
     private List<JedisShardInfo> transCheckShardInfo(List<ZedisShardInfo> shards) throws ZedisShardInfoException {
         if(shards == null || shards.size() == 0){
-            throw new ZedisShardInfoException("not setting zedis shard info");
+            throw new ZedisShardInfoException("初始化zedis连接池失败，请添加zedis连接信息");
         }
         List<Integer> shardnums = new ArrayList<Integer>();
         for(ZedisShardInfo shardinfo:shards){
@@ -39,7 +39,7 @@ public class ZedisShardPool {
         int index = 0;
         for(int shardInfoShard:shardnums){
             if(shardInfoShard != index){
-                throw  new ZedisShardInfoException("setting zedis shard num error");
+                throw  new ZedisShardInfoException("初始化zedis连接池失败，分片编号必须为从0开始连续整数");
             }
             index ++;
         }
