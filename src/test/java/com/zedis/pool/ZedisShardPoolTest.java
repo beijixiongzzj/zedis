@@ -33,7 +33,7 @@ public class ZedisShardPoolTest {
             ShardedJedis jedis = null;
             try {
                 jedis = shardedJedisPool.getPool().getResource();
-                jedis.set(i+"",UUID.randomUUID().toString());
+                jedis.set(UUID.randomUUID().toString(),UUID.randomUUID().toString());
                 System.out.println("set");
                 try {
                     Thread.sleep(100);

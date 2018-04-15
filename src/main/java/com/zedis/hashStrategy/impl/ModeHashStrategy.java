@@ -18,7 +18,7 @@ public class ModeHashStrategy extends ZedisHashStrategy {
 
     public int findShardNumForKey(byte[] key, List<ZedisShardInfo> shards, Map<Integer, ZedisShardInfo> shardDict) {
         String keys = new String(key);
-        int keyint = Integer.parseInt(keys);
+        int keyint = keys.hashCode();
         int shardnum = keyint%shards.size();
         ZedisShardInfo shardInfo = shardDict.get(shardnum);
         return shards.indexOf(shardInfo);
